@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="bower_components/angularjs/angular-csp.css"/>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css"/>
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css"/>
+
+    <link rel="stylesheet" href="app/css/BootstrapCss.css"/>
+    <link rel="stylesheet" href="bower_components/angular-ui-growl/css/growl.css"/>
+
+
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+
+    <script src="bower_components/angularjs/angular.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <script src="bower_components/angular-ui-growl/src/growl.js"></script>
+
+    <script src="app/js/app-config-bootstrap.js"></script>
+    <script src=app/js/bootstrap-controller.js></script>
+</head>
+<body ng-app="helloWorldApp">
+
+        <div class="container" ng-controller="BootstrapController">
+
+            <form novalidate name="myForm">
+
+                <div class="form-group col-sm-3" ng-class="{'has-error': (myForm.itNome.$invalid && !myForm.$pristine)}">
+                    <label for="itNome">Nome</label>
+                    <input type="text" class="form-control" id="itNome" name="itNome" ng-model="pessoa.nome"
+                            minlength="3" maxlength="10" required>
+                    <div class="help-block" ng-messages="myForm.itNome.$error" ng-if="!myForm.$pristine">
+                        <div ng-messages-include="mensagens.html"></div>
+                    </div>
+                </div>
+                <div class="form-group col-sm-3">
+                    <label for="itSobrenome">Sobrenome</label>
+                    <input type="text" class="form-control" id="itSobrenome" ng-model="pessoa.sobrenome">
+                </div>
+                <div class="form-group col-sm-3">
+                    <label for="itNascimento">Nascimento</label>
+                    <input type="date" class="form-control" id="itNascimento" ng-model="pessoa.nascimento">
+                </div>
+                <div class="form-group col-sm-3">
+                    <label for="itSexo">Nascimento</label>
+                    <select class="form-control" id="itSexo" ng-model="pessoa.sexo">
+                        <option value="M">Masculino</option>
+                        <option value="F">Feminino</option>
+                        </select>
+                </div>
+
+                {{pessoa}}
+
+                <nav class="navbar navbar-default">
+                    <button type="submit" class="btn btn-primary navbar-btn" ng-click="salvar()">
+                        <i class="fa fa-save"></i>
+                        Salvar
+                    </button>
+                    <button class="btn btn-warning navbar-btn" ng-click="limpar()">
+                        <i class="fa fa-eraser"></i>
+                        Limpar
+                    </button>
+                    <button class="btn btn-danger navbar-btn" ng-click="excluir()">
+                        <i class="fa fa-trash-o"></i>
+                        Excluir
+                    </button>
+                </nav>
+
+                {{pessoas}}
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Sobrenome</th>
+                            <th>Nascimento</th>
+                            <th>Sexo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="obj in pessoas track by $index" ng-click="editar(obj)">
+                            <td ng-bind="::obj.nome"></td>
+                            <td ng-bind="::obj.sobrenome"></td>
+                            <td ng-bind="::obj.nascimento | date:'dd/MM/yyyy'"></td>
+                            <td ng-bind="::obj.sexo"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </form>
+
+        </div>
+
+
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4"></div>
+        </div>
+
+</body>
+</html>
